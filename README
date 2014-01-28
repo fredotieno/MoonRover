@@ -1,0 +1,87 @@
+===========
+MOON ROVERS
+===========
+
+===========================
+ASSUMPTIONS IN THE SOLUTION
+===========================
+1. The controller runs the program through the command prompt.
+2. The controller operates the rovers through a customized input board made up of numbers[0-9], SPACEBAR, letters[N, S, W, E, L, R and M] and ENTER.
+3. The controller is very accurate such that inputs match the input types expected. For example if input is 2 integers and a letter separated by spaces.
+4. There is one moon plateau where all the moon rovers are located.
+5. One or more moon rovers can be located at the same x and y coordinate pair(x,y) on the moon plateau.
+6. If a moon rover is initialised with a co-ordinate outside the plateau the coordinate is set to 0.
+7. If a moon rover is initialised with an invalid orientation, the orientation is set to North.
+8. If a moon rover is given invalid explore commands, the rover simply skips such commands, gives an alert and continues with the explore commands.
+9. If the rover is at the edges of the moon plateau and a move requires it to move beyond the edge it simply does not move but maintains its state.
+
+
+The SOLUTION is made up of 4 classes and one of the classes is a test case using JUnit.
+
+=============
+The classes:
+=============
+
+1. Plateau
+2. MoonRover
+3. MoonRoverTest(This is the test case)
+4. RoverExplore
+
+1.Plateau class is used to create an object which represents the rectangular moon plateau.
+The object has states: plateauXMax
+		       plateauYMax
+
+	      Methods: Plateau -      "Initiailises the states of the plateau"
+		       giveXPlateau - "Returns plateauXMax"
+	      	       giveYPlateau - "Returns plateauYMax"
+
+
+2.MoonRover class is used to create an object which represents the Moon Rover on the moon plateau.
+The object has states: xCoordinate
+		       yCoordinate
+		       orientation
+
+	      Methods:MoonRover -          "Initialises the states of the MoonRover object"
+		      rectifyOrientation - "Corrects the orientation according to the possible cardinal points that the rover can face"
+		      spinLeft -           "Spin the rover 90 degrees to the left"
+		      spinRight -          "Spin the rover 90 degrees to the right"
+		      move -               "Move the rover one step in the orientation it is facing"
+		      whereAreYou -        "Returns string containing the location of the rover on the grid and its orientation"
+
+
+3.MoonRoverTest is used to test MoonRover class.
+It uses hard coded input and expected output to perform the test.
+
+
+4.RoverExplore is a class that contains the main method. 
+It provides an interface on the command prompt from where the controller can: Initialise the moon plateau
+                                                                              Determine the number of moon rovers on the moon plateau
+									      Initialise and the moon rovers
+                                                                              Enter the exploration commands for the moon rovers
+                                                                              Finally he can final location and orientation of each moon rover
+
+===============================
+Interaction between the classes
+===============================
+
+Plateau class contains a static method which is used by the MoonRover class to access the static variables plateauXMax and plateauYMax.
+MoonRoverTest class simply tests the MoonRover class with hard coded input to assertain if the expected output is produced.
+RoverExplore class creates a Plateau object and a MoonRover object(s) using the Plateau and MoonRover classes.
+RoverExplore class can invoke the spinLeft, spinRight, move and whereAreYou methods of the MoonRover class.
+
+=================================
+Compiling and Running the Classes
+=================================
+On *nix Operating Systems
+Enter the following commands:
+Change the directory to the Moon Rover which was extracted from the tar.gz you downloaded
+1. javac Plateau.java
+2. javac MoonPlateau.java
+3. javac -cp .:junit-4.11.jar:hamcrest-core-1.3.jar MoonRoverTest.java
+4. javac RoverExplore.java
+
+Testing the MoonPlateau Class
+5. java -cp .:junit-4.11.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore MoonRoverTest
+
+Running RoverExplore Class
+6. java RoverExplore
